@@ -425,7 +425,13 @@ module.exports = function (grunt) {
           expand: true,
           cwd: '.',
           flatten: true,
-          src: 'bower_components/bootstrap-material-design/fonts/*',
+          src: ['bower_components/bootstrap/fonts/*', 'bower_components/bootstrap-material-design/fonts/*'],
+          dest: '<%= yeoman.dist %>/fonts'
+        }, {
+          expand: true,
+          cwd: '.',
+          flatten: true,
+          src: 'bower_components/bootstrap/fonts/*',
           dest: '<%= yeoman.dist %>/fonts'
         }]
       },

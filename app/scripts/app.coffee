@@ -37,10 +37,16 @@ angular
         templateUrl: 'views/projects.html'
         controller: 'ProjectsCtrl'
         controllerAs: 'projects'
+        resolve: tableData: ($http) ->
+          $http.get('api/projects').then (response) ->
+            response.data
       .when '/blog',
         templateUrl: 'views/blog.html'
         controller: 'BlogCtrl'
         controllerAs: 'blog'
+        resolve: tableData: ($http) ->
+          $http.get('api/posts').then (response) ->
+            response.data
       .when '/contact',
         templateUrl: 'views/contact.html'
         controller: 'ContactCtrl'
