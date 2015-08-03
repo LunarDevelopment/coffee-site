@@ -51,6 +51,10 @@ angular
         templateUrl: 'views/contact.html'
         controller: 'ContactCtrl'
         controllerAs: 'contact'
+      .when '/admin',
+        templateUrl: 'views/admin.html'
+        controller: 'AdminCtrl'
+        controllerAs: 'admin'
       .otherwise
         redirectTo: '/'
 
