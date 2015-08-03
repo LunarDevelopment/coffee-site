@@ -8,37 +8,39 @@
  # Controller of the coffeeSiteApp
 ###
 angular.module 'coffeeSiteApp'
-  .controller 'ModalCtrl', ($http, $modalInstance) ->
-    @ok = -> 
-      $modalInstance.close @selected.item
-    @cancel = -> 
+  .controller 'ModalCtrl', ($http, $modalInstance, $httpParamSerializerJQLike) ->
+    vm = @
+    vm.ok = -> 
+      $modalInstance.close vm.selected.item
+    vm.cancel = -> 
       $modalInstance.dismiss 'cancel'
-    @result = 'hidden'
-    @submitButtonDisabled = false 
-    @submitted = false 
-    @submit = (contactform) ->
-      @submitted = true
-      @submitButtonDisabled = true
+    vm.result = 'hidden'
+    vm.submitButtonDisabled = false 
+    vm.submitted = false 
+    vm.submit = (contactform) ->
       if contactform.$valid
+        vm.submitButtonDisabled = true
         $http(
           method: 'POST'
-          url: 'api/contact-form.php'
-          data: @formData
+          url: 'api/contact/contact-form.php'
+          data: $httpParamSerializerJQLike(vm.formData)
           headers: 'Content-Type': 'application/x-www-form-urlencoded').success (data) ->
           console.log data
           if data.success
+            #@submitted = true
             #success comes from the return json object
-            @submitButtonDisabled = true
-            @resultMessage = data.message
-            @result = 'bg-success'
+            vm.submitButtonDisabled = true
+            vm.resultMessage = data.message
+            vm.result = 'bg-success'
           else
-            @submitButtonDisabled = false
-            @resultMessage = data.message
-            @result = 'bg-danger'
+            vm.submitButtonDisabled = false
+            vm.resultMessage = data.message
+            vm.result = 'bg-danger'
           return
+        vm.submitButtonDisabled = false
       else 
-        @submitButtonDisabled = false
-        @resultMessage = 'Failed, Please fill in all the fields!'
-        @result = 'bg-danger'
+        vm.submitButtonDisabled = false
+        vm.resultMessage = 'Failed, Please fill in all the fields!'
+        vm.result = 'bg-danger'
       return
     return
