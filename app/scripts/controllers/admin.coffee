@@ -9,6 +9,6 @@
 ###
 angular.module 'coffeeSiteApp'
   .controller 'AdminCtrl', ->
-    vm = @ 
+    vm = @
     
     return
